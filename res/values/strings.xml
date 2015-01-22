@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings">com.exnoke.battery.cycle.settings</string>
+    <string name="app_name">Cycle</string>
+
+</resources>
