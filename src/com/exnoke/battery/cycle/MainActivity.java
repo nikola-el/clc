@@ -53,6 +53,7 @@ public class MainActivity extends Activity
 		{}
 
 		Long time = System.currentTimeMillis() + AlarmManager.INTERVAL_DAY;
+		time = time - time % 3600000 + 480000;
 		Cycle.setLong(this, "alarm", time);
 		if (Build.VERSION.SDK_INT >= 19)
 		{
