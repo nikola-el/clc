@@ -2,8 +2,10 @@ package com.exnoke.battery.cycle;
 
 import android.app.*;
 import android.content.*;
+import android.net.*;
 import android.os.*;
 import android.widget.*;
+import java.io.*;
 
 public class MainActivity extends Activity
 {
@@ -67,7 +69,10 @@ public class MainActivity extends Activity
 
 	private void notifyShow(boolean show)
 	{
-		PendingIntent notifyPIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setDataAndType(Uri.fromFile(new File("/storage/emulated/0/Download/Mish-Mash.xlsx")), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		PendingIntent notifyPIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		Notification noti = new Notification();
 		String contentText ="Cycle: " + Cycle.getCycle(this) + ", last day: " + Cycle.getDiff(this);
