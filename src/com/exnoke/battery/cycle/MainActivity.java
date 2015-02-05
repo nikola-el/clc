@@ -6,6 +6,7 @@ import android.net.*;
 import android.os.*;
 import android.widget.*;
 import java.io.*;
+import java.util.*;
 
 public class MainActivity extends Activity
 {
@@ -54,8 +55,15 @@ public class MainActivity extends Activity
 		catch (Exception e)
 		{}
 
-		Long time = System.currentTimeMillis() + AlarmManager.INTERVAL_DAY;
-		time = time - time % 3600000 + 480000;
+		Long time = System.currentTimeMillis();
+		time = time - time % AlarmManager.INTERVAL_DAY + 18 * AlarmManager.INTERVAL_HOUR + 480000;
+		time = Cycle.fix(time);
+		if (TimeZone.getDefault().inDaylightTime(new Date(time)))
+		{
+			time -= AlarmManager.INTERVAL_HOUR;
+		}
+		time = Cycle.fix(time);
+		
 		Cycle.setLong(this, "alarm", time);
 		if (Build.VERSION.SDK_INT >= 19)
 		{

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.exnoke.battery.cycle"
     android:versionCode="13"
-    android:versionName="1.1.11.2" >
+    android:versionName="1.1.11.4b3" >
 
     <uses-sdk 
         android:minSdkVersion="8" 
@@ -34,6 +34,15 @@
 			android:enabled="true">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
+		<receiver
+			android:name=".ShutdownReceiver"
+			android:enabled="true"
+			android:priority="100">
+			<intent-filter>
+				<action android:name="android.intent.action.ACTION_SHUTDOWN" />
+				<action android:name="android.intent.action.QUICKBOOT_POWEROFF" />
 			</intent-filter>
 		</receiver>
     </application>

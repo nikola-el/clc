@@ -7,6 +7,11 @@ import java.text.*;
 
 public final class Cycle
 {
+	protected static final Long fix(Long l)
+	{
+		return (l < System.currentTimeMillis()) ?(l + 86400000): l;
+	}
+	
 	protected static final Float get(Context p1, String p2)
 	{
 		SharedPreferences sharedPref = p1.getSharedPreferences(p1.getString(R.string.settings), Context.MODE_PRIVATE);
