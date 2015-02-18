@@ -12,15 +12,28 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int item=0x7f020001;
+        public static final int statusbar=0x7f020002;
     }
     public static final class id {
-        public static final int mainTextView1=0x7f050000;
+        public static final int averageInfo=0x7f050001;
+        public static final int currInfo=0x7f050000;
+        public static final int diffInfo=0x7f050003;
+        public static final int lastInfo=0x7f050002;
+        public static final int maxInfo=0x7f050005;
+        public static final int minInfo=0x7f050004;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int stats=0x7f030000;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
+        public static final int cycle_average=0x7f040006;
+        public static final int cycle_current=0x7f040002;
+        public static final int cycle_diff=0x7f040004;
+        public static final int cycle_last=0x7f040003;
+        public static final int cycle_max=0x7f040007;
+        public static final int cycle_min=0x7f040005;
         public static final int settings=0x7f040000;
     }
 }

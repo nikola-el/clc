@@ -62,7 +62,7 @@ public final class Cycle
 
 	private static final String format(Float f)
 	{
-		return new DecimalFormat("#.##").format(f);
+		return new DecimalFormat("0.00").format(f);
 	}
 
 	protected static final String getCycle(Context p1)
@@ -102,15 +102,15 @@ public final class Cycle
 	protected static final void setDiff(Context p1)
 	{
 		Float currCycle = get(p1, "cycle");
-		Float lastCycle = get(p1, "week");
+		Float diff = currCycle - get(p1, "week");
 		Float elapsed = new Float((System.currentTimeMillis() - getLong(p1, "start"))) / AlarmManager.INTERVAL_DAY;
 		Float average = (currCycle - get(p1, "initial")) / elapsed;
 
-		set(p1, "diff", currCycle - lastCycle);
+		set(p1, "diff", diff);
 		set(p1, "week", currCycle);
 		set(p1, "average", average);
-		set(p1, "min", Math.min(get(p1, "min"), currCycle));
-		set(p1, "max", Math.max(get(p1, "max"), currCycle));
+		set(p1, "min", Math.min(get(p1, "min"), diff));
+		set(p1, "max", Math.max(get(p1, "max"), diff));
 	}
 
 	protected static final String getJson(Context p1)
@@ -158,5 +158,10 @@ public final class Cycle
 		Intent restore = new Intent("com.exnoke.battery.cycle.RESTORE_STATS");
 		restore.setPackage("com.exnoke.wakelock");
 		p1.sendBroadcast(restore);
+	}
+
+	protected static final boolean my(Context p1)
+	{
+		return get(p1, "my") != 0;
 	}
 }

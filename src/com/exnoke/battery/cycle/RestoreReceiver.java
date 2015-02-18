@@ -10,30 +10,35 @@ public class RestoreReceiver extends BroadcastReceiver
 	public void onReceive(Context p1, Intent p2)
 	{
 		String extra = p2.getStringExtra("cycle");
+		Float restore = 1f;
+		String un = "";
 		JSONObject json = new JSONObject();
 		try
 		{
 			json = new JSONObject(extra);
 		}
 		catch (JSONException e)
-		{}
+		{
+			un = "un";
+			restore = 0f;
+		}
 		SharedPreferences.Editor sharedPref = p1.getSharedPreferences(p1.getString(R.string.settings), Context.MODE_PRIVATE).edit();
 		sharedPref.putFloat("cycle", getFloat(json, "cycle"));
-		
+
 		sharedPref.putLong("alarm", getLong(json, "alarm"));
 		sharedPref.putFloat("level", getFloat(json, "level"));
 		sharedPref.putFloat("diff", getFloat(json, "diff"));
 		sharedPref.putFloat("week", getFloat(json, "week"));
-		
+
 		sharedPref.putFloat("min", getFloat(json, "min"));
 		sharedPref.putFloat("max", getFloat(json, "max"));
 		sharedPref.putFloat("average", getFloat(json, "average"));
 		sharedPref.putLong("start", getLong(json, "start"));
 		sharedPref.putFloat("initial", getFloat(json, "initial"));
-		
-		sharedPref.putFloat("restore", 1f);
+
+		sharedPref.putFloat("restore", restore);
 		sharedPref.commit();
-		Toast.makeText(p1, "Restore successful!", Toast.LENGTH_LONG).show();
+		Toast.makeText(p1, "Restore " + un + "successful!", Toast.LENGTH_LONG).show();
 
 		Cycle.setCycle(p1, true);
 	}
@@ -48,7 +53,7 @@ public class RestoreReceiver extends BroadcastReceiver
 		{}
 		return 0f;
 	}
-	
+
 	private long getLong(JSONObject p1, String p2)
 	{
 		try

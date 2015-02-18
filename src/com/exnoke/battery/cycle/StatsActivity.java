@@ -4,7 +4,6 @@ import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
-import java.util.*;
 
 public class StatsActivity extends Activity
 {
@@ -13,19 +12,35 @@ public class StatsActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.stats);
 		Cycle.setCycleOrRestore(this);
-		getActionBar().setDisplayHomeAsUpEnabled(Cycle.wakelockInstalled(this));
-		TextView text = (TextView)findViewById(R.id.mainTextView1);
-		text.setText(Cycle.getJson(this));
-		
-		Cycle.set(this, "initial", 132.86f);
-		Cycle.set(this, "average", 0.76f);
-		Cycle.set(this, "min", 0.33f);
-		Cycle.set(this, "max", 1.28f);
-		Cycle.setLong(this, "start", 1421258880000l);
+		getActionBar().setDisplayHomeAsUpEnabled(Cycle.wakelockInstalled(this) & getIntent().getBooleanExtra("parent", false));
 	}
-	
+
+	@Override
+	protected void onResume()
+	{
+		TextView currInfo = (TextView)findViewById(R.id.currInfo);
+		currInfo.setText(Cycle.getCycle(this));
+		TextView averageInfo = (TextView)findViewById(R.id.averageInfo);
+		averageInfo.setText(Cycle.getValue(this, "average"));
+		TextView lastInfo = (TextView)findViewById(R.id.lastInfo);
+		lastInfo.setText(Cycle.getValue(this, "week"));
+		TextView diffInfo = (TextView)findViewById(R.id.diffInfo);
+		diffInfo.setText(Cycle.getValue(this, "diff"));
+		try
+		{
+			TextView minInfo = (TextView)findViewById(R.id.minInfo);
+			minInfo.setText(Cycle.getValue(this, "min"));
+			TextView maxInfo = (TextView)findViewById(R.id.maxInfo);
+			maxInfo.setText(Cycle.getValue(this, "max"));
+		}
+		catch (Exception e)
+		{}
+
+		super.onResume();
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{

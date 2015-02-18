@@ -6,7 +6,6 @@ import android.net.*;
 import android.os.*;
 import android.widget.*;
 import java.io.*;
-import java.util.*;
 
 public class MainActivity extends Activity
 {
@@ -14,15 +13,7 @@ public class MainActivity extends Activity
 	protected void onStart()
 	{
 		super.onStart();
-		Intent i = getIntent();
-		boolean alarm = false;
-
-		try
-		{
-			alarm = i.getBooleanExtra("alarm", false);
-		}
-		catch (Exception e)
-		{}
+		boolean alarm = getIntent().getBooleanExtra("alarm", false);
 
 		Cycle.setCycleOrRestore(this);
 
@@ -70,10 +61,7 @@ public class MainActivity extends Activity
 
 	private void notifyShow(boolean show)
 	{
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setDataAndType(Uri.fromFile(new File("/storage/emulated/0/Download/Mish-Mash.xlsx")), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		PendingIntent notifyPIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent notifyPIntent = PendingIntent.getActivity(this, 1, whichIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
 
 		Notification noti = new Notification();
 		String contentText ="Cycle: " + Cycle.getCycle(this) + ", last day: " + Cycle.getValue(this, "diff");
@@ -86,5 +74,21 @@ public class MainActivity extends Activity
 		NotificationManager note = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		note.cancelAll();
 		note.notify("cycle", 0, noti);
+	}
+
+	private Intent whichIntent()
+	{
+		Intent intent;
+		if (Cycle.my(this))
+		{
+			intent = new Intent(Intent.ACTION_VIEW);
+			intent.setDataAndType(Uri.fromFile(new File("/storage/emulated/0/Download/Mish-Mash.xlsx")), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		}
+		else
+		{
+			intent = new Intent(this, StatsActivity.class);
+		}
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		return intent;
 	}
 }
