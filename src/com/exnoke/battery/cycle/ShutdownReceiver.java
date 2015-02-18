@@ -8,7 +8,10 @@ public class ShutdownReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context p1, Intent p2)
 	{
-		Cycle.setCycle(p1);
+		if (!Cycle.mustRestore(p1))
+		{
+			Cycle.setCycle(p1, false);
+		}
 	}
 
 }

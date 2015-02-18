@@ -24,7 +24,7 @@ public class MainActivity extends Activity
 		catch (Exception e)
 		{}
 
-		Cycle.setCycle(this);
+		Cycle.setCycleOrRestore(this);
 
 		if (alarm)
 		{
@@ -55,15 +55,8 @@ public class MainActivity extends Activity
 		catch (Exception e)
 		{}
 
-		Long time = System.currentTimeMillis();
-		time = time - time % AlarmManager.INTERVAL_DAY + 18 * AlarmManager.INTERVAL_HOUR + 480000;
-		time = Cycle.fix(time);
-		if (TimeZone.getDefault().inDaylightTime(new Date(time)))
-		{
-			time -= AlarmManager.INTERVAL_HOUR;
-		}
-		time = Cycle.fix(time);
-		
+		Long time = Cycle.time();
+
 		Cycle.setLong(this, "alarm", time);
 		if (Build.VERSION.SDK_INT >= 19)
 		{
@@ -83,7 +76,7 @@ public class MainActivity extends Activity
 		PendingIntent notifyPIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		Notification noti = new Notification();
-		String contentText ="Cycle: " + Cycle.getCycle(this) + ", last day: " + Cycle.getDiff(this);
+		String contentText ="Cycle: " + Cycle.getCycle(this) + ", last day: " + Cycle.getValue(this, "diff");
 		noti.icon = R.drawable.ic_launcher;
 		noti.priority = show ?Notification.PRIORITY_DEFAULT: Notification.PRIORITY_MIN;
 		noti.flags = Notification.FLAG_AUTO_CANCEL;

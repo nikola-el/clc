@@ -8,8 +8,8 @@ public class BootReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context p1, Intent p2)
 	{
-		Cycle.setCycle(p1);
-		
+		Cycle.setCycleOrRestore(p1);
+
 		AlarmManager am = (AlarmManager)p1.getSystemService(p1.ALARM_SERVICE);
 		Intent alarmIntent = new Intent(p1, MainActivity.class);
 		alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
