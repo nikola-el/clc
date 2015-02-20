@@ -7,14 +7,19 @@ import android.widget.*;
 
 public class StatsActivity extends Activity
 {
-
+	private boolean theme = false;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Cycle.setTheme(this, theme = getIntent().getBooleanExtra("theme", false));
 		setContentView(R.layout.stats);
 		Cycle.setCycleOrRestore(this);
-		getActionBar().setDisplayHomeAsUpEnabled(Cycle.wakelockInstalled(this) & getIntent().getBooleanExtra("parent", false));
+		if(Build.VERSION.SDK_INT >= 11)
+		{
+			getActionBar().setDisplayHomeAsUpEnabled(Cycle.wakelockInstalled(this) & getIntent().getBooleanExtra("parent", false));
+		}
 	}
 
 	@Override

@@ -16,12 +16,12 @@ public final class R {
         public static final int statusbar=0x7f020002;
     }
     public static final class id {
-        public static final int averageInfo=0x7f050001;
-        public static final int currInfo=0x7f050000;
-        public static final int diffInfo=0x7f050003;
-        public static final int lastInfo=0x7f050002;
-        public static final int maxInfo=0x7f050005;
-        public static final int minInfo=0x7f050004;
+        public static final int averageInfo=0x7f060001;
+        public static final int currInfo=0x7f060000;
+        public static final int diffInfo=0x7f060003;
+        public static final int lastInfo=0x7f060002;
+        public static final int maxInfo=0x7f060005;
+        public static final int minInfo=0x7f060004;
     }
     public static final class layout {
         public static final int stats=0x7f030000;
@@ -35,5 +35,10 @@ public final class R {
         public static final int cycle_max=0x7f040007;
         public static final int cycle_min=0x7f040005;
         public static final int settings=0x7f040000;
+    }
+    public static final class style {
+        public static final int AppTheme=0x7f050000;
+        public static final int DarkTheme=0x7f050002;
+        public static final int LightTheme=0x7f050001;
     }
 }

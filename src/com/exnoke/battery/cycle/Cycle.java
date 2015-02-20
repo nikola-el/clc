@@ -164,4 +164,9 @@ public final class Cycle
 	{
 		return get(p1, "my") != 0;
 	}
+	
+	protected static final void setTheme(Context p1, boolean theme)
+	{
+		p1.setTheme(theme?R.style.DarkTheme:R.style.LightTheme);
+	}
 }
