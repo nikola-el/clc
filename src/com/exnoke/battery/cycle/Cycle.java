@@ -204,9 +204,9 @@ public final class Cycle
 	protected static final String stringElementChange(String initial, String element)
 	{
 		String[] global = initial.split(";");
-		String[] edited = new String[Math.min(global.length+1,6)];
+		String[] edited = new String[Math.min(global.length+1,9)];
 		edited[0] = element;
-		System.arraycopy(global,0,edited,1,Math.min(global.length,5));
+		System.arraycopy(global,0,edited,1,Math.min(global.length,8));
 		return TextUtils.join(";",edited);
 	}
 }

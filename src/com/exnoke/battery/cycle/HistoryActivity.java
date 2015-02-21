@@ -32,9 +32,11 @@ public class HistoryActivity extends Activity
 			{R.id.historyTextView20,R.id.historyTextView21,R.id.historyTextView22},
 			{R.id.historyTextView30,R.id.historyTextView31,R.id.historyTextView32},
 			{R.id.historyTextView40,R.id.historyTextView41,R.id.historyTextView42},
-			{R.id.historyTextView50,R.id.historyTextView51,R.id.historyTextView52}
+			{R.id.historyTextView50,R.id.historyTextView51,R.id.historyTextView52},
+			{R.id.historyTextView60,R.id.historyTextView61,R.id.historyTextView62},
+			{R.id.historyTextView70,R.id.historyTextView71,R.id.historyTextView72},
+			{R.id.historyTextView80,R.id.historyTextView81,R.id.historyTextView82}
 		};
-
 
 		String[][] data = Cycle.layoutArrayfromString(Cycle.getHistory(this));
 
