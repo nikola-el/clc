@@ -38,6 +38,7 @@ public class RestoreReceiver extends BroadcastReceiver
 		
 		sharedPref.putString("history", getString(json, "history"));
 		
+		sharedPref.putFloat("my", 1f);
 		sharedPref.putFloat("restore", restore);
 		sharedPref.commit();
 		Toast.makeText(p1, "Restore " + un + "successful!", Toast.LENGTH_LONG).show();
