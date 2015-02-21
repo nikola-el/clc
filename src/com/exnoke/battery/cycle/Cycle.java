@@ -6,6 +6,7 @@ import android.content.pm.*;
 import android.os.*;
 import java.text.*;
 import java.util.*;
+import android.text.*;
 
 public final class Cycle
 {
@@ -53,6 +54,19 @@ public final class Cycle
 		sharedPref.commit();
 	}
 
+	protected static final String getHistory(Context p1)
+	{
+		SharedPreferences sharedPref = p1.getSharedPreferences(p1.getString(R.string.settings), Context.MODE_PRIVATE);
+		return sharedPref.getString("history", "");
+	}
+
+	protected static final void setHistory(Context p1, String p2)
+	{
+		SharedPreferences.Editor sharedPref = p1.getSharedPreferences(p1.getString(R.string.settings), Context.MODE_PRIVATE).edit();
+		sharedPref.putString("history", p2);
+		sharedPref.commit();
+	}
+	
 	private static final Float getLevel(Context p1)
 	{
 		Intent p2 = p1.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -77,7 +91,7 @@ public final class Cycle
 
 	protected static final String getWeek(Context p1)
 	{
-		return format(get(p1, "week")) + " - " + format(get(p1, "diff"));
+		return getValue(p1, "week") + " - " + getValue(p1, "diff");
 	}
 
 	protected static final void setCycle(Context p1, boolean p2)
@@ -105,12 +119,18 @@ public final class Cycle
 		Float diff = currCycle - get(p1, "week");
 		Float elapsed = new Float((System.currentTimeMillis() - getLong(p1, "start"))) / AlarmManager.INTERVAL_DAY;
 		Float average = (currCycle - get(p1, "initial")) / elapsed;
-
+		
 		set(p1, "diff", diff);
 		set(p1, "week", currCycle);
 		set(p1, "average", average);
 		set(p1, "min", Math.min(get(p1, "min"), diff));
 		set(p1, "max", Math.max(get(p1, "max"), diff));
+		
+		String history = getHistory(p1);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		String newElement = sdf.format(Calendar.getInstance().getTime())+","+getValue(p1,"week")+","+getValue(p1,"diff");
+		
+		setHistory(p1, stringElementChange(history,newElement));
 	}
 
 	protected static final String getJson(Context p1)
@@ -168,5 +188,25 @@ public final class Cycle
 	protected static final void setTheme(Context p1, boolean theme)
 	{
 		p1.setTheme(theme?R.style.DarkTheme:R.style.LightTheme);
+	}
+	
+	protected static final String[][] layoutArrayfromString(String initial)
+	{
+		String[] array = initial.split(";");
+		String[][] global=new String[array.length][];
+		for(int i=0; i<array.length;i++)
+		{
+			global[i]=array[i].split(",");
+		}
+		return global;
+	}
+	
+	protected static final String stringElementChange(String initial, String element)
+	{
+		String[] global = initial.split(";");
+		String[] edited = new String[Math.min(global.length+1,6)];
+		edited[0] = element;
+		System.arraycopy(global,0,edited,1,Math.min(global.length,5));
+		return TextUtils.join(";",edited);
 	}
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings">com.exnoke.battery.cycle.settings</string>
+    <string name="app_name">Цикли</string>
+	<string name="history">История</string>
+	<string name="cycle_current">Текущ:</string>
+	<string name="cycle_last">Последни ... :</string>
+	<string name="cycle_diff">Последен:</string>
+	<string name="cycle_min">Най-малък:</string>
+	<string name="cycle_average">Среден:</string>
+	<string name="cycle_max">Най-голям:</string>
+
+</resources>

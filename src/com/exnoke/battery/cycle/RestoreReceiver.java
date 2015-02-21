@@ -35,7 +35,9 @@ public class RestoreReceiver extends BroadcastReceiver
 		sharedPref.putFloat("average", getFloat(json, "average"));
 		sharedPref.putLong("start", getLong(json, "start"));
 		sharedPref.putFloat("initial", getFloat(json, "initial"));
-
+		
+		sharedPref.putString("history", getString(json, "history"));
+		
 		sharedPref.putFloat("restore", restore);
 		sharedPref.commit();
 		Toast.makeText(p1, "Restore " + un + "successful!", Toast.LENGTH_LONG).show();
@@ -63,5 +65,16 @@ public class RestoreReceiver extends BroadcastReceiver
 		catch (JSONException e)
 		{}
 		return Cycle.time();
+	}
+	
+	private String getString(JSONObject p1, String p2)
+	{
+		try
+		{
+			return p1.getString(p2);
+		}
+		catch (JSONException e)
+		{}
+		return "";
 	}
 }

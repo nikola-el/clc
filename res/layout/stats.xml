@@ -65,6 +65,57 @@
 			android:visibility="invisible"/>
 
 		<ImageButton
+			android:layout_height="2dp"
+			android:layout_width="match_parent"
+			android:background="@drawable/statusbar"/>
+
+		<ImageButton
+			android:layout_height="5dp"
+			android:layout_width="match_parent"
+			android:visibility="invisible"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:gravity="center"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:text="@string/cycle_min"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:paddingLeft="15dp"/>
+
+			<ImageButton
+				android:layout_height="match_parent"
+				android:layout_width="4dp"
+				android:layout_marginRight="12dp"
+				android:background="@drawable/item"/>
+
+			<TextView
+				android:id="@+id/minInfo"
+				android:layout_height="wrap_content"
+				android:layout_width="75dp"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:gravity="right"
+				android:text="-"/>
+
+			<ImageButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:visibility="invisible"
+				android:layout_marginLeft="-6dp"/>
+
+		</LinearLayout>
+
+		<ImageButton
+			android:layout_height="5dp"
+			android:layout_width="match_parent"
+			android:visibility="invisible"/>
+
+		<ImageButton
 			android:layout_height="1dp"
 			android:layout_width="match_parent"
 			android:background="@drawable/statusbar"/>
@@ -115,6 +166,16 @@
 			android:layout_width="match_parent"
 			android:visibility="invisible"/>
 
+		<ImageButton
+			android:layout_height="1dp"
+			android:layout_width="match_parent"
+			android:background="@drawable/statusbar"/>
+
+		<ImageButton
+			android:layout_height="5dp"
+			android:layout_width="match_parent"
+			android:visibility="invisible"/>
+
 	</LinearLayout>
 
 	<LinearLayout
@@ -123,6 +184,47 @@
 		android:orientation="vertical"
 		android:layout_weight="11"
 		android:gravity="top">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:gravity="center"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:text="@string/cycle_max"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:paddingLeft="15dp"/>
+
+			<ImageButton
+				android:layout_height="match_parent"
+				android:layout_width="4dp"
+				android:layout_marginRight="12dp"
+				android:background="@drawable/item"/>
+
+			<TextView
+				android:id="@+id/maxInfo"
+				android:layout_height="wrap_content"
+				android:layout_width="75dp"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:gravity="right"
+				android:text="-"/>
+
+			<ImageButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:visibility="invisible"
+				android:layout_marginLeft="-6dp"/>
+
+		</LinearLayout>
+
+		<ImageButton
+			android:layout_height="5dp"
+			android:layout_width="match_parent"
+			android:visibility="invisible"/>
 
 		<ImageButton
 			android:layout_height="2dp"

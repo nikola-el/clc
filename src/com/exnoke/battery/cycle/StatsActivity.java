@@ -4,10 +4,14 @@ import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
+import java.util.*;
+import android.text.*;
+import android.content.*;
 
 public class StatsActivity extends Activity
 {
-	private boolean theme = false;
+	protected static boolean theme = false;
+	protected static boolean parent = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -18,7 +22,7 @@ public class StatsActivity extends Activity
 		Cycle.setCycleOrRestore(this);
 		if(Build.VERSION.SDK_INT >= 11)
 		{
-			getActionBar().setDisplayHomeAsUpEnabled(Cycle.wakelockInstalled(this) & getIntent().getBooleanExtra("parent", false));
+			getActionBar().setDisplayHomeAsUpEnabled(Cycle.wakelockInstalled(this) & (parent = getIntent().getBooleanExtra("parent", false)));
 		}
 	}
 
@@ -46,6 +50,12 @@ public class StatsActivity extends Activity
 		super.onResume();
 	}
 
+	public void showHistory(View v)
+	{
+		Intent history = new Intent(this, HistoryActivity.class);
+		startActivity(history);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
