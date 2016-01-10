@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="settings">com.exnoke.battery.cycle.settings</string>
     <string name="app_name">Цикли</string>
 	<string name="history">История</string>
+	<string name="history_unavailable">Не е налично все още. Моля опитайте отново утре.</string>
 	<string name="cycle_current">Текущ:</string>
 	<string name="cycle_last">Последни ... :</string>
 	<string name="cycle_diff">Последен:</string>
 	<string name="cycle_min">Най-малък:</string>
 	<string name="cycle_average">Среден:</string>
 	<string name="cycle_max">Най-голям:</string>
-
+	<string name="fixed_dups">Поправено</string>
+	<string name="fixed_average">Средната стойност е нулирана</string>
+	
 </resources>

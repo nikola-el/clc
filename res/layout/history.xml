@@ -572,7 +572,8 @@
 				android:layout_weight="1"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:paddingLeft="15dp"
-				android:id="@+id/historyTextView00"/>
+				android:id="@+id/historyTextView00"
+				android:clickable="true"/>
 
 			<ImageButton
 				android:layout_height="match_parent"

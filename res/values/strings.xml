@@ -4,11 +4,14 @@
     <string name="settings">com.exnoke.battery.cycle.settings</string>
     <string name="app_name">Cycle</string>
 	<string name="history">History</string>
+	<string name="history_unavailable">Not available yet. Try again tomorrow.</string>
 	<string name="cycle_current">Current:</string>
 	<string name="cycle_last">Last ... :</string>
 	<string name="cycle_diff">Last day:</string>
 	<string name="cycle_min">Minimum:</string>
 	<string name="cycle_average">Average:</string>
 	<string name="cycle_max">Maximum:</string>
+	<string name="fixed_dups">Duplicate fixed</string>
+	<string name="fixed_average">Average reset</string>
 
 </resources>

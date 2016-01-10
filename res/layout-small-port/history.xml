@@ -243,6 +243,72 @@
 				android:layout_weight="1"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:paddingLeft="15dp"
+				android:id="@+id/historyTextView40"/>
+
+			<ImageButton
+				android:layout_height="match_parent"
+				android:layout_width="4dp"
+				android:layout_marginRight="4dp"
+				android:background="@drawable/item"/>
+
+			<TextView
+				android:layout_width="75dp"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:gravity="right"
+				android:text="-"
+				android:id="@+id/historyTextView41"/>
+
+			<ImageButton
+				android:layout_height="match_parent"
+				android:layout_width="4dp"
+				android:layout_marginRight="2dp"
+				android:background="@drawable/item"
+				android:layout_marginLeft="8dp"/>
+
+			<TextView
+				android:layout_width="55dp"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:gravity="right"
+				android:text="-"
+				android:id="@+id/historyTextView42"/>
+
+			<ImageButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:visibility="invisible"
+				android:layout_marginLeft="-12dp"/>
+
+		</LinearLayout>
+
+		<ImageButton
+			android:layout_height="5dp"
+			android:layout_width="match_parent"
+			android:visibility="invisible"/>
+
+		<ImageButton
+			android:layout_height="1dp"
+			android:layout_width="match_parent"
+			android:background="@drawable/statusbar"/>
+
+		<ImageButton
+			android:layout_height="5dp"
+			android:layout_width="match_parent"
+			android:visibility="invisible"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:paddingLeft="15dp"
 				android:id="@+id/historyTextView30"/>
 
 			<ImageButton
@@ -291,6 +357,15 @@
 			android:layout_height="1dp"
 			android:layout_width="match_parent"
 			android:background="@drawable/statusbar"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="0dp"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:layout_weight="11"
+		android:gravity="top">
 
 		<ImageButton
 			android:layout_height="5dp"
@@ -357,67 +432,6 @@
 			android:layout_height="1dp"
 			android:layout_width="match_parent"
 			android:background="@drawable/statusbar"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_height="0dp"
-		android:layout_width="match_parent"
-		android:orientation="vertical"
-		android:layout_weight="11"
-		android:gravity="top">
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:orientation="horizontal"
-			android:visibility="gone">
-
-			<TextView
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:paddingLeft="15dp"
-				android:id="@+id/historyTextView40"/>
-
-			<ImageButton
-				android:layout_height="match_parent"
-				android:layout_width="4dp"
-				android:layout_marginRight="4dp"
-				android:background="@drawable/item"/>
-
-			<TextView
-				android:layout_width="75dp"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:gravity="right"
-				android:text="-"
-				android:id="@+id/historyTextView41"/>
-
-			<ImageButton
-				android:layout_height="match_parent"
-				android:layout_width="4dp"
-				android:layout_marginRight="2dp"
-				android:background="@drawable/item"
-				android:layout_marginLeft="8dp"/>
-
-			<TextView
-				android:layout_width="55dp"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:gravity="right"
-				android:text="-"
-				android:id="@+id/historyTextView42"/>
-
-			<ImageButton
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:visibility="invisible"
-				android:layout_marginLeft="-12dp"/>
-
-		</LinearLayout>
 
 		<ImageButton
 			android:layout_height="5dp"

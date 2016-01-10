@@ -4,11 +4,11 @@ import android.app.*;
 import android.content.*;
 import android.net.*;
 import android.os.*;
-import android.widget.*;
-import java.io.*;
 
 public class MainActivity extends Activity
 {
+	private boolean api = Build.VERSION.SDK_INT >= 11;
+	
 	@Override
 	protected void onStart()
 	{
@@ -20,75 +20,58 @@ public class MainActivity extends Activity
 		if (alarm)
 		{
 			Cycle.setDiff(this);
-			setAlarm();
-			notifyShow(Cycle.get(this, "diff") > 0.7);
+			long time = Cycle.time();
+			Cycle.setLong(this, "alarm", time);
+			Cycle.setAlarm(this, time);
+			if (api)
+			{
+				notifyShow(Cycle.get(this, "diff") >= 1, Cycle.isSnapshotDay());
+			}
 		}
-		else
+		else if (api)
 		{
-			Toast.makeText(this, Cycle.getCycle(this), Toast.LENGTH_LONG).show();
-			Toast.makeText(this, Cycle.getWeek(this), Toast.LENGTH_LONG).show();
+			notifyShow(false, Cycle.isSnapshotDay());
 		}
 		finish();
 	}
 
-	private void setAlarm()
+	private void notifyShow(boolean show, boolean snap)
 	{
-		AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-		Intent alarmIntent = new Intent(this, MainActivity.class);
-		alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		alarmIntent.putExtra("alarm", true);
-		PendingIntent pInt = PendingIntent.getActivity(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent notifyPIntent = PendingIntent.getActivity(this, 1, new Intent(this, Cycle.isSnapshotDay() ? HistoryActivity.class: StatsActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK), PendingIntent.FLAG_UPDATE_CURRENT);
+		String contentText ="Cycle: " + Cycle.getCycle(this) + ", last day: " + Cycle.getValue(this, "diff");
+		String contextTitle = snap ?"Snapshot": "Cycle";
+		Notification noti;
 
-		try
+		if (Build.VERSION.SDK_INT >= 16)
 		{
-			am.cancel(pInt);
-		}
-		catch (Exception e)
-		{}
-
-		Long time = Cycle.time();
-
-		Cycle.setLong(this, "alarm", time);
-		if (Build.VERSION.SDK_INT >= 19)
-		{
-			am.setExact(AlarmManager.RTC_WAKEUP, time, pInt);
+			noti = new Notification.Builder(this)
+				.setContentTitle(contextTitle)
+				.setContentText(contentText)
+				.setTicker(contentText)
+				.setContentIntent(notifyPIntent)
+				.setSmallIcon(snap ? R.drawable.ic_menu_quickmemo : R.drawable.ic_launcher)
+				.setPriority((snap || show) ?Notification.PRIORITY_DEFAULT: Notification.PRIORITY_MIN)
+				.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + (snap ?R.raw.schedule: R.raw.crystal)))
+				.setDefaults(Notification.DEFAULT_VIBRATE)
+				.build();
 		}
 		else
 		{
-			am.set(AlarmManager.RTC_WAKEUP, time, pInt);
+			noti = new Notification.Builder(this)
+				.setContentTitle(contextTitle)
+				.setContentText(contentText)
+				.setTicker(contentText)
+				.setContentIntent(notifyPIntent)
+				.setSmallIcon(snap ? R.drawable.ic_menu_quickmemo : R.drawable.ic_launcher)
+				.setPriority((snap || show) ?Notification.PRIORITY_DEFAULT: Notification.PRIORITY_MIN)
+				.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + (snap ?R.raw.schedule: R.raw.crystal)))
+				.setDefaults(Notification.DEFAULT_VIBRATE)
+				.getNotification();
 		}
-	}
 
-	private void notifyShow(boolean show)
-	{
-		PendingIntent notifyPIntent = PendingIntent.getActivity(this, 1, whichIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
-
-		Notification noti = new Notification();
-		String contentText ="Cycle: " + Cycle.getCycle(this) + ", last day: " + Cycle.getValue(this, "diff");
-		noti.icon = R.drawable.ic_launcher;
-		noti.priority = show ?Notification.PRIORITY_DEFAULT: Notification.PRIORITY_MIN;
-		noti.flags = Notification.FLAG_AUTO_CANCEL;
-		noti.defaults = Notification.DEFAULT_ALL;
-		noti.setLatestEventInfo(this, "Cycle", contentText, notifyPIntent);
+		noti.flags = snap ?48: 16;
 
 		NotificationManager note = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-		note.cancelAll();
 		note.notify("cycle", 0, noti);
-	}
-
-	private Intent whichIntent()
-	{
-		Intent intent;
-		if (Cycle.my(this))
-		{
-			intent = new Intent(Intent.ACTION_VIEW);
-			intent.setDataAndType(Uri.fromFile(new File("/storage/emulated/0/Download/Mish-Mash.xlsx")), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-		}
-		else
-		{
-			intent = new Intent(this, StatsActivity.class);
-		}
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		return intent;
 	}
 }

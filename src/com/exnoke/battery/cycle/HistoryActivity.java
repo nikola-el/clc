@@ -4,22 +4,21 @@ import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
-import java.util.*;
-import java.text.*;
 
 public class HistoryActivity extends Activity
 {
-
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		Cycle.setTheme(this, StatsActivity.theme);
-		setContentView(R.layout.history);
+
 		if (Build.VERSION.SDK_INT >= 11)
 		{
+			Cycle.setTheme(this, StatsActivity.theme);
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
+
+		setContentView(R.layout.history);
 		setView();
 	}
 
@@ -40,13 +39,37 @@ public class HistoryActivity extends Activity
 
 		String[][] data = Cycle.layoutArrayfromString(Cycle.getHistory(this));
 
-		for (int i=0;i < Math.min(views.length,data.length);i++)
+		for (int i=0;i < Math.min(views.length, data.length);i++)
 		{
 			for (int j=0;j < 3;j++)
 			{
 				TextView view=(TextView)findViewById(views[i][j]);
 				view.setText(data[i][j]);
 			}
+		}
+
+		TextView fixView = (TextView) findViewById(R.id.historyTextView00);
+		fixView.setOnLongClickListener(new LocalListener());
+	}
+
+	private void fix()
+	{
+		fix(findViewById(R.id.historyTextView00));
+	}
+
+	public void fix(View v)
+	{
+		TextView v1 = (TextView) v;
+		TextView v2 = (TextView) findViewById(R.id.historyTextView10);
+		if (v1.getText().equals(v2.getText()) || Cycle.get(this, "diff") < 0.3)
+		{
+			String[][] data = Cycle.layoutArrayfromString(Cycle.getHistory(this));
+			Cycle.set(this, "week", Float.valueOf(data[1][1]));
+			Cycle.set(this, "diff", Float.valueOf(data[1][2]));
+			Cycle.setHistory(this, Cycle.stringElementRemove(Cycle.getHistory(this), 1));
+			Toast.makeText(this, getString(R.string.fixed_dups), 1).show();
+
+			finish();
 		}
 	}
 
@@ -60,6 +83,16 @@ public class HistoryActivity extends Activity
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private class LocalListener implements View.OnLongClickListener
+	{
+		@Override
+		public boolean onLongClick(View p1)
+		{
+			fix();
+			return true;
 		}
 	}
 }
